@@ -15,47 +15,18 @@ jobs:
       fail-fast: false
       matrix:
         WHEEL:
-          - PIP_NAME: numpy
-            PKG_TEST: import numpy
           - PIP_NAME: sqlalchemy
             PKG_TEST: import sqlalchemy
-          - PIP_NAME: pymongo
-            PKG_TEST: |
-              import pymongo
-              import pymongo.message
-          - PIP_NAME: lxml
-            PKG_TEST: |
-              import lxml.etree
-              import lxml.sax
-          - PIP_NAME: lazy-object-proxy
-            PKG_TEST: import lazy_object_proxy
-          - PIP_NAME: simplejson
-            PKG_TEST: |
-              import simplejson
-              simplejson._speedups
-          - PIP_NAME: Pillow
-            PKG_TEST: |
-              import PIL
-              import PIL._imagingcms
-              import PIL._imaging
-              import PIL._imagingft
-              import PIL._imagingmath
-              import PIL._imagingmorph
-          - PIP_NAME: kiwisolver
-            PKG_TEST: import kiwisolver
           - PIP_NAME: cffi
-            INSTALL_DEPS: gcc
             PKG_TEST: import cffi
           - PIP_NAME: cryptography
-            INSTALL_DEPS: gcc
             PKG_TEST: |
               from cryptography.hazmat.backends.openssl.backend import backend
               print('Loaded: ' + backend.openssl_version_text())
               print('Linked Against: ' + backend._ffi.string(backend._lib.OPENSSL_VERSION_TEXT).decode('ascii'))
     name: "Centos8 for ${{ matrix.WHEEL.PIP_NAME }}"
     steps:
-      - run: yum install -y python3-pip
+      - run: yum install -y python3-pip gcc
       - run: python3 -m pip install --upgrade pip
-      - run: yum install -y ${{ matrix.WHEEL.INSTALL_DEPS }}    
       - run: python3 -m pip install ${{ matrix.WHEEL.PIP_NAME }}
       - run: echo "${{ matrix.WHEEL.PKG_TEST }}" | python3
