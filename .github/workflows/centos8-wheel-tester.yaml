@@ -9,7 +9,7 @@ on:
 
 jobs:
   centos8_test:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     container: centos:8
     strategy:
       fail-fast: false
