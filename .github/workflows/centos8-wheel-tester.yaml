@@ -56,6 +56,6 @@ jobs:
     steps:
       - run: yum install -y python3-pip
       - run: python3 -m pip install --upgrade pip
-      - run: yum install -y "${{ matrix.WHEEL.INSTALL_DEPS }}    
+      - run: yum install -y ${{ matrix.WHEEL.INSTALL_DEPS }}    
       - run: python3 -m pip install ${{ matrix.WHEEL.PIP_NAME }}
       - run: echo "${{ matrix.WHEEL.PKG_TEST }}" | python3
