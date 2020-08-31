@@ -9,7 +9,7 @@ on:
 
 jobs:
   al2_test:
-    runs-on: [self-hosted, linux, ARM64, al2]
+    runs-on: [ubuntu-latest, al2]
     container: amazonlinux:2
     strategy:
       fail-fast: false
