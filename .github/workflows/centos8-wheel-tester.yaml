@@ -44,8 +44,10 @@ jobs:
           - PIP_NAME: kiwisolver
             PKG_TEST: import kiwisolver
           - PIP_NAME: cffi
+            INSTALL_DEPS: gcc
             PKG_TEST: import cffi
           - PIP_NAME: cryptography
+            INSTALL_DEPS: gcc
             PKG_TEST: |
               from cryptography.hazmat.backends.openssl.backend import backend
               print('Loaded: ' + backend.openssl_version_text())
@@ -54,5 +56,6 @@ jobs:
     steps:
       - run: yum install -y python3-pip
       - run: python3 -m pip install --upgrade pip
+      - run: yum install -y "${{ matrix.INSTALL_DEPS }}    
       - run: python3 -m pip install ${{ matrix.WHEEL.PIP_NAME }}
       - run: echo "${{ matrix.WHEEL.PKG_TEST }}" | python3
