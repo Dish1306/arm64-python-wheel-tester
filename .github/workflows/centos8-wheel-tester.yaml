@@ -15,8 +15,8 @@ jobs:
       fail-fast: false
       matrix:
         WHEEL:
-          - PIP_NAME: sqlalchemy
-            PKG_TEST: import sqlalchemy
+          - PIP_NAME: numpy
+            PKG_TEST: import numpy
           - PIP_NAME: cffi
             PKG_TEST: import cffi
           - PIP_NAME: cryptography
@@ -24,6 +24,8 @@ jobs:
               from cryptography.hazmat.backends.openssl.backend import backend
               print('Loaded: ' + backend.openssl_version_text())
               print('Linked Against: ' + backend._ffi.string(backend._lib.OPENSSL_VERSION_TEXT).decode('ascii'))
+          - PIP_NAME: sqlalchemy
+            PKG_TEST: import sqlalchemy
     name: "Centos8 for ${{ matrix.WHEEL.PIP_NAME }}"
     steps:
       - run: yum install -y python3-pip gcc
