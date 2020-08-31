@@ -25,9 +25,6 @@ jobs:
               import pymongo.message
           - PIP_NAME: lxml
             PKG_TEST: |
-              import lxml._elementpath
-              import lxml.builder
-              import lxml.objectify
               import lxml.etree
               import lxml.sax
           - PIP_NAME: lazy-object-proxy
